@@ -345,7 +345,7 @@ static void write_spice_instance_to_file(std::fstream& fp,
    * if we have an instance name, use it;
    * if not, we use a default name <name>_<num_instance_in_parent_module>
    */
-  std::string instance_head_line = "X ";
+  std::string instance_head_line = "X";
   if (true ==
       module_manager.instance_name(parent_module, child_module, instance_id)
         .empty()) {

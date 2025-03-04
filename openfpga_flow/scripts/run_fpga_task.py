@@ -310,6 +310,13 @@ def generate_each_task_actions(taskname):
             "verific_include_dir",
             "verific_library_dir",
             "verific_search_lib",
+
+            "yosys_adder_map_verilog",
+            "yosys_adder_sim_verilog",
+            "yosys_frac_float_sim_verilog",
+            "yosys_rfifo_sim_verilog",
+            "yosys_wfifo_sim_verilog",
+            "yosys_ahb_slave_sim_verilog",
         ]
 
         yosys_params_common = {}

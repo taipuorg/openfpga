@@ -61,7 +61,7 @@ void VprRoutingAnnotation::set_rr_node_prev_node(const RRGraphView& rr_graph,
   VTR_ASSERT(size_t(rr_node) < rr_node_nets_.size());
   /* Warn any override attempt */
   if ((RRNodeId::INVALID() != rr_node_prev_nodes_[rr_node]) &&
-      (prev_node != rr_node_prev_nodes_[rr_node])) {
+      (prev_node != rr_node_prev_nodes_[rr_node]) && rr_graph.node_type(prev_node) != SINK) {
     VTR_LOG_WARN(
       "Override the previous node '%s' by previous node '%s' for node '%s' "
       "with in routing context annotation!\n",
@@ -69,8 +69,10 @@ void VprRoutingAnnotation::set_rr_node_prev_node(const RRGraphView& rr_graph,
       rr_graph.node_coordinate_to_string(prev_node).c_str(),
       rr_graph.node_coordinate_to_string(rr_node).c_str());
   }
+  if(rr_graph.node_type(prev_node) != SINK) {
+    rr_node_prev_nodes_[rr_node] = prev_node;
+  }
 
-  rr_node_prev_nodes_[rr_node] = prev_node;
 }
 
 } /* End namespace openfpga*/

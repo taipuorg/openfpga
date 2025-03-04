@@ -257,7 +257,7 @@ void print_spice_subckt_instance(
   }
 
   /* Print instance name */
-  std::string instance_head_line = "X " + instance_name + " ";
+  std::string instance_head_line = "X" + instance_name + " ";
   fp << instance_head_line;
 
   /* Port sequence: global, inout, input, output and clock ports, */
