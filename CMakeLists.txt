@@ -74,19 +74,19 @@ option(OPENFPGA_ENABLE_STRICT_COMPILE "Specifies whether compiler warnings shoul
 
 # Options pass on to VTR
 set(WITH_ABC ON CACHE BOOL "Enable building ABC in Verilog-to-Routing")
-set(WITH_ODIN ON CACHE BOOL "Enable building Odin in Verilog-to-Routing")
-set(ODIN_DEBUG ON CACHE BOOL "Enable building odin with debug flags in Verilog-to-Routing")
-set(ODIN_WARN ON CACHE BOOL "Enable building odin with extra warning flags in Verilog-to-Routing")
-set(ODIN_COVERAGE ON CACHE BOOL "Enable building odin with coverage flags in Verilog-to-Routing")
-set(ODIN_TIDY ON CACHE BOOL "Enable building odin with clang tidy in Verilog-to-Routing")
-set(ODIN_SANITIZE ON CACHE BOOL "Enable building odin with sanitize flags in Verilog-to-Routing")
-set(WITH_YOSYS ON CACHE BOOL "Enable building Yosys in Verilog-to-Routing")
-set(WITH_PARMYS ON CACHE BOOL "Enable Yosys as elaborator and parmys-plugin as partial mapper")
-set(ODIN_YOSYS ON CACHE BOOL "Enable building odin with yosys in Verilog-to-Routing")
-set(YOSYS_SV_UHDM_PLUGIN ON CACHE BOOL "Enable building and installing Yosys SystemVerilog and UHDM plugins in Verilog-to-Routing")
-set(YOSYS_F4PGA_PLUGINS ON CACHE BOOL "Enable building and installing Yosys SystemVerilog and UHDM plugins")
+set(WITH_ODIN OFF CACHE BOOL "Enable building Odin in Verilog-to-Routing")
+set(ODIN_DEBUG OFF CACHE BOOL "Enable building odin with debug flags in Verilog-to-Routing")
+set(ODIN_WARN OFF CACHE BOOL "Enable building odin with extra warning flags in Verilog-to-Routing")
+set(ODIN_COVERAGE OFF CACHE BOOL "Enable building odin with coverage flags in Verilog-to-Routing")
+set(ODIN_TIDY OFF CACHE BOOL "Enable building odin with clang tidy in Verilog-to-Routing")
+set(ODIN_SANITIZE OFF CACHE BOOL "Enable building odin with sanitize flags in Verilog-to-Routing")
+set(WITH_YOSYS OFF CACHE BOOL "Enable building Yosys in Verilog-to-Routing")
+set(WITH_PARMYS OFF CACHE BOOL "Enable Yosys as elaborator and parmys-plugin as partial mapper")
+set(ODIN_YOSYS OFF CACHE BOOL "Enable building odin with yosys in Verilog-to-Routing")
+set(YOSYS_SV_UHDM_PLUGIN OFF CACHE BOOL "Enable building and installing Yosys SystemVerilog and UHDM plugins in Verilog-to-Routing")
+set(YOSYS_F4PGA_PLUGINS OFF CACHE BOOL "Enable building and installing Yosys SystemVerilog and UHDM plugins")
 set(VTR_ENABLE_VERSION ${OPENFPGA_WITH_VERSION} CACHE BOOL "Enable version always-up-to-date when building codebase. Disable only when you do not care an accurate version number")
-set(WITH_PARMYS ON CACHE BOOL "Enable Yosys as elaborator and parmys-plugin as partial mapper")
+set(WITH_PARMYS OFF CACHE BOOL "Enable Yosys as elaborator and parmys-plugin as partial mapper")
 # TODO: OpenFPGA and VPR has different requirements on no-warning build, e.g., on OS and compiler versions
 #set(VTR_ENABLE_STRICT_COMPILE ${OPENFPGA_ENABLE_STRICT_COMPILE} CACHE BOOL "Specifies whether compiler warnings should be treated as errors (e.g. -Werror)")
 
@@ -320,7 +320,7 @@ if (OPENFPGA_WITH_YOSYS)
     else ()
         # run makefile provided, we pass-on the options to the local make file 
         add_custom_target(
-            openfpga_yosys ALL 
+            yosys ALL 
             COMMAND $(MAKE) config-gcc
             COMMAND $(MAKE) install PREFIX=${CMAKE_CURRENT_BINARY_DIR}/yosys/
             WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/yosys
