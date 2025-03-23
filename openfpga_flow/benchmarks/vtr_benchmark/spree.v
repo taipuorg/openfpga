@@ -2015,6 +2015,48 @@ assign NoUse = ( |boot_iaddr );
 
 endmodule
 
+module dual_port_ram (
+	input clk,
+	input we1,
+	input we2,
+	input [10 - 1 : 0] addr1,
+	input [32 - 1 : 0] data1,
+	output [32 - 1 : 0] out1,
+	input [10 - 1 : 0] addr2,
+	input [32 - 1 : 0] data2,
+	output [32 - 1 : 0] out2
+);
+	reg [32 - 1 : 0] ram[2**10 - 1 : 0];
+	reg [32 - 1 : 0] data_out1;
+	reg [32 - 1 : 0] data_out2;
+
+	assign out1 = data_out1;
+	assign out2 = data_out2;
+
+    // If writen enable 1 is activated,
+    // data1 will be loaded through addr1
+    // Otherwise, data will be read out through addr1
+	always @(posedge clk) begin
+		if (we1) begin
+			ram[addr1] <= data1;
+        end else begin
+			data_out1 <= ram[addr1];
+		end
+	end
+
+    // If writen enable 2 is activated,
+    // data1 will be loaded through addr2
+    // Otherwise, data will be read out through addr2
+	always @(posedge clk) begin
+		if (we2) begin
+			ram[addr2] <= data2;
+		end else begin
+			data_out2 <= ram[addr2];
+		end
+	end
+
+endmodule
+
 
 module dummy_counter (
 	data,
@@ -2166,6 +2208,29 @@ endmodule
 
 //temp in here
 
+module single_port_ram (
+	input clk,
+	input we,
+	input [9:0] addr,
+	input [31:0] data,
+	output [31:0] out );
+
+	reg [31:0] ram[1023:0];
+	reg [31:0] internal;
+
+	assign out = internal;
+
+	always @(posedge clk) begin
+		if(wen) begin
+			ram[addr] <= data;
+		end
+
+		if(ren) begin
+			internal <= ram[addr];
+		end
+	end
+
+endmodule
 
 
 

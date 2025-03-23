@@ -828,6 +828,48 @@ dual_port_ram u_dual_port_ram(
 
 endmodule
 
+module dual_port_ram (
+	input clk,
+	input we1,
+	input we2,
+	input [`AWIDTH - 1 : 0] addr1,
+	input [`MAT_MUL_SIZE*`DWIDTH - 1 : 0] data1,
+	output [`MAT_MUL_SIZE*`DWIDTH - 1 : 0] out1,
+	input [`AWIDTH - 1 : 0] addr2,
+	input [`MAT_MUL_SIZE*`DWIDTH - 1 : 0] data2,
+	output [`MAT_MUL_SIZE*`DWIDTH - 1 : 0] out2
+);
+	reg [`MAT_MUL_SIZE*`DWIDTH - 1 : 0] ram[2**`AWIDTH - 1 : 0];
+	reg [`MAT_MUL_SIZE*`DWIDTH - 1 : 0] data_out1;
+	reg [`MAT_MUL_SIZE*`DWIDTH - 1 : 0] data_out2;
+
+	assign out1 = data_out1;
+	assign out2 = data_out2;
+
+    // If writen enable 1 is activated,
+    // data1 will be loaded through addr1
+    // Otherwise, data will be read out through addr1
+	always @(posedge clk) begin
+		if (we1) begin
+			ram[addr1] <= data1;
+        end else begin
+			data_out1 <= ram[addr1];
+		end
+	end
+
+    // If writen enable 2 is activated,
+    // data1 will be loaded through addr2
+    // Otherwise, data will be read out through addr2
+	always @(posedge clk) begin
+		if (we2) begin
+			ram[addr2] <= data2;
+		end else begin
+			data_out2 <= ram[addr2];
+		end
+	end
+
+endmodule
+
   
 //////////////////////////////////////////////
 //4x4 systolic matrix multiplier

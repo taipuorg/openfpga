@@ -312,6 +312,7 @@ def generate_each_task_actions(taskname):
             "verific_search_lib",
 
             "yosys_adder_map_verilog",
+            "yosys_adder_map_parameters",
             "yosys_adder_sim_verilog",
             "yosys_frac_float_sim_verilog",
             "yosys_rfifo_sim_verilog",
